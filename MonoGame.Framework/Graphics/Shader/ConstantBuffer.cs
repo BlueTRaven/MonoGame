@@ -87,9 +87,12 @@ namespace Microsoft.Xna.Framework.Graphics
             else if (rows == 1 || (rows == 4 && columns == 4)) {
                 // take care of shader compiler optimization
                 int len = rows * columns * elementSize;
-                if (_buffer.Length - offset > len)
-                len = _buffer.Length - offset;
-                Buffer.BlockCopy(data as Array, 0, _buffer, offset, rows*columns*elementSize);
+
+                // matrices may sometimes be optimized to remove rows and columns, in which case the buffer length
+                // needs to be corrected.
+                if (_buffer.Length - offset < len)
+                    len = _buffer.Length - offset;
+                Buffer.BlockCopy(data as Array, 0, _buffer, offset, len);
             } else
             {
                 var source = data as Array;
