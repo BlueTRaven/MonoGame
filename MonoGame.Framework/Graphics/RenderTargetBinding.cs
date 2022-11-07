@@ -104,6 +104,18 @@ namespace Microsoft.Xna.Framework.Graphics
             _depthFormat = renderTarget.DepthStencilFormat;
         }
 
+        public RenderTargetBinding(RenderTargetCube renderTarget, CubeMapFace cubeMapFace, int arraySlice)
+        {
+            if (renderTarget == null)
+                throw new ArgumentNullException("renderTarget");
+            if (cubeMapFace < CubeMapFace.PositiveX || cubeMapFace > CubeMapFace.NegativeZ)
+                throw new ArgumentOutOfRangeException("cubeMapFace");
+
+            _renderTarget = renderTarget;
+            _arraySlice = arraySlice * 6 + (int)cubeMapFace;
+            _depthFormat = renderTarget.DepthStencilFormat;
+        }
+
         public RenderTargetBinding(RenderTarget3D renderTarget)
         {
             if (renderTarget == null)

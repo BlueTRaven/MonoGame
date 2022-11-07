@@ -53,7 +53,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <param name="preferredFormat">The preferred format of the surface.</param>
         /// <param name="preferredDepthFormat">The preferred format of the depth-stencil buffer.</param>
         public RenderTargetCube(GraphicsDevice graphicsDevice, int size, bool mipMap, SurfaceFormat preferredFormat, DepthFormat preferredDepthFormat)
-            : this(graphicsDevice, size, mipMap, preferredFormat, preferredDepthFormat, 0, RenderTargetUsage.DiscardContents)
+            : this(graphicsDevice, size, mipMap, preferredFormat, preferredDepthFormat, 0, RenderTargetUsage.DiscardContents, 1)
         {            
         }
 
@@ -67,8 +67,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <param name="preferredDepthFormat">The preferred format of the depth-stencil buffer.</param>
         /// <param name="preferredMultiSampleCount">The preferred number of multisample locations.</param>
         /// <param name="usage">The usage mode of the render target.</param>
-        public RenderTargetCube(GraphicsDevice graphicsDevice, int size, bool mipMap, SurfaceFormat preferredFormat, DepthFormat preferredDepthFormat, int preferredMultiSampleCount, RenderTargetUsage usage)
-            : base(graphicsDevice, size, mipMap, QuerySelectedFormat(graphicsDevice, preferredFormat), true)
+        public RenderTargetCube(GraphicsDevice graphicsDevice, int size, bool mipMap, SurfaceFormat preferredFormat, DepthFormat preferredDepthFormat, int preferredMultiSampleCount, RenderTargetUsage usage, int arraySize)
+            : base(graphicsDevice, size, mipMap, QuerySelectedFormat(graphicsDevice, preferredFormat), arraySize, true)
         {
             DepthStencilFormat = preferredDepthFormat;
             MultiSampleCount = preferredMultiSampleCount;

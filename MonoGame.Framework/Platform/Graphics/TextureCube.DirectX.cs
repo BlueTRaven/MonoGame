@@ -34,7 +34,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 Width = size,
                 Height = size,
                 MipLevels = _levelCount,
-                ArraySize = 6, // A texture cube is a 2D texture array with 6 textures.
+                ArraySize = ArraySize * 6, // A texture cube is a 2D texture array with 6 textures.
                 Format = SharpDXHelper.ToFormat(_format),
                 BindFlags = BindFlags.ShaderResource,
                 CpuAccessFlags = CpuAccessFlags.None,

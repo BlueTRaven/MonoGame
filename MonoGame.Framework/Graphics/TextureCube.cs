@@ -12,6 +12,8 @@ namespace Microsoft.Xna.Framework.Graphics
 	{
 		internal int size;
 
+        internal int ArraySize;
+
         /// <summary>
         /// Gets the width and height of the cube map face in pixels.
         /// </summary>
@@ -25,25 +27,35 @@ namespace Microsoft.Xna.Framework.Graphics
         }
 		
 		public TextureCube (GraphicsDevice graphicsDevice, int size, bool mipMap, SurfaceFormat format)
-            : this(graphicsDevice, size, mipMap, format, false)
+            : this(graphicsDevice, size, mipMap, format, 1, false)
 		{
         }
 
-        internal TextureCube(GraphicsDevice graphicsDevice, int size, bool mipMap, SurfaceFormat format, bool renderTarget) :
+        public TextureCube(GraphicsDevice graphicsDevice, int size, bool mipMap, SurfaceFormat format, int arraySize)
+            : this(graphicsDevice, size, mipMap, format, arraySize, false)
+        {
+        }
+
+        internal TextureCube(GraphicsDevice graphicsDevice, int size, bool mipMap, SurfaceFormat format, int arraySize, bool renderTarget) :
             base(ShaderAccess.None)
         {
             if (graphicsDevice == null)
                 throw new ArgumentNullException("graphicsDevice", FrameworkResources.ResourceCreationWhenDeviceIsNull);
             if (size <= 0)
                 throw new ArgumentOutOfRangeException("size","Cube size must be greater than zero");
+            if (arraySize > 1 && !graphicsDevice.GraphicsCapabilities.SupportsTextureArrays)
+                throw new ArgumentException("Texture arrays are not supported on this graphics device", "arraySize");
 
             this.GraphicsDevice = graphicsDevice;
 			this.size = size;
             this._format = format;
             this._levelCount = mipMap ? CalculateMipLevels(size) : 1;
+            this.ArraySize = arraySize;
 
             PlatformConstruct(graphicsDevice, size, mipMap, format, renderTarget);
         }
+
+        
 
         /// <summary>
         /// Gets a copy of cube texture data specifying a cubemap face.

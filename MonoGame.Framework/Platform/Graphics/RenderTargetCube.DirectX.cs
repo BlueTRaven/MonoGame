@@ -16,7 +16,7 @@ namespace Microsoft.Xna.Framework.Graphics
         private void PlatformConstruct(GraphicsDevice graphicsDevice, bool mipMap, DepthFormat preferredDepthFormat, int preferredMultiSampleCount, RenderTargetUsage usage)
         {
             // Create one render target view per cube map face.
-            _renderTargetViews = new RenderTargetView[6];
+            _renderTargetViews = new RenderTargetView[ArraySize * 6];
             for (int i = 0; i < _renderTargetViews.Length; i++)
             {
                 var renderTargetViewDescription = new RenderTargetViewDescription
